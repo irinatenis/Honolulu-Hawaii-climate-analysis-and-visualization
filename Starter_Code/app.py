@@ -51,7 +51,8 @@ def welcome():
     ) 
 
 #Convert the query results from your precipitation analysis (i.e. retrieve only the last 12 months of data) to a dictionary using date as the key and prcp as the value.
-#Return the JSON representation of your dictionary.
+#Return the JSON representation of your dictionary.     
+
 @app.route("/api/v1.0/precipitation")
 def precipitation():
 # Create our session (link) from Python to the DB
@@ -60,14 +61,13 @@ def precipitation():
     """Return last year precipitation analysis"""
 # Query last year precipitation
     results = session.query(Measurement.prcp, Measurement.date).\
-    filter(Measurement.date<= dt.date(2017,8,23),Measurement.date>=dt.date(2016, 8, 23)).all()
+    filter(Measurement.date<= dt.date(2017,8,23),Measurement.date>=dt.date(2016, 8, 23)).order_by(Measurement.date).all()
     
     session.close()
     last_year_precipitation = []
     for prcp,date in results:
         precipitation_dict = {}
-        precipitation_dict["precipitation"] = prcp
-        precipitation_dict["date"] = date
+        precipitation_dict[date]=prcp
         last_year_precipitation.append(precipitation_dict)
     return jsonify(last_year_precipitation)
 
@@ -120,9 +120,9 @@ def active_station_observations():
 
 
 @app.route("/api/v1.0/<start>")
-# @app.route("/api/v1.0/<start>/<end>")
+
 def start_date(start):
-    # Set start and end dates for date range
+    # Set start date
     startDate=(start)
 # Create our session (link) from Python to the DB
     session = Session(engine)
@@ -137,6 +137,29 @@ def start_date(start):
         stats['avg']=avg
         TMIN_TAVG_TMAX.append(stats)
     return jsonify(TMIN_TAVG_TMAX)
+
+# For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the dates from the start date to the end date, inclusive.
+@app.route("/api/v1.0/<start>/<end>")
+
+def start_end_date(start,end):
+    # Set start and end dates for date range
+    startDate=(start)
+    endDate=(end)
+# Create our session (link) from Python to the DB
+    session = Session(engine)
+    results=session.query(func.min(Measurement.tobs),func.max(Measurement.tobs),func.avg(Measurement.tobs)).\
+        filter(Measurement.date>=startDate, Measurement.date<=endDate).all()
+    session.close()
+    TMIN_TAVG_TMAX = []
+    for min, max, avg in results:
+        stats={}
+        stats["min"]=min
+        stats['max']=max
+        stats['avg']=avg
+        TMIN_TAVG_TMAX.append(stats)
+    return jsonify(TMIN_TAVG_TMAX)
+
+
     # TMIN_TAVG_TMAX = []
     # TMIN_TAVG_TMAX[min]=session.query(func.min(Measurement.tobs)).\
     #     filter(Measurement.date>=startDate).all()
