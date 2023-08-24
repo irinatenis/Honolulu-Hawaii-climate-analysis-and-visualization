@@ -1,4 +1,4 @@
-# sqlalchemy-challenge
+# Honolulu, Hawaii, climate analysis and visualization
 ## **Goal**:
 To do a climate analysis of Honolulu, Hawaii, and design a climate app
 ## **Data**:
