@@ -9,6 +9,8 @@ Python (Pandas, NumPy, datetime, and Matplotlib), SQLAlchemy, Flask
 1. Used SQLAlchemy to connect to the SQLite database and reflected tables into classes 
 2. Linked Python to the database by creating a SQLAlchemy session and ran the queries for precipitation and stations data
 3. Saved the query results to Pandas DataFrames and plotted them
+![image](https://github.com/irinatenis/Honolulu-Hawaii-climate-analysis-and-visualization/assets/120978502/c9da6ea1-a591-426d-ab8b-9a1275472dd6)
+
 ### **Climate App Design**:
 1. Used Flask to create a homepage that lists 5 avalable routes, both static and dynamic
 2. Applied the queries from the previous part to return JSON lists of observations/calculations for each route
