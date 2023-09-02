@@ -10,6 +10,8 @@ Python (Pandas, NumPy, datetime, and Matplotlib), SQLAlchemy, Flask
 2. Linked Python to the database by creating a SQLAlchemy session and ran the queries for precipitation and stations data
 3. Saved the query results to Pandas DataFrames and plotted them
 ![image](https://github.com/irinatenis/Honolulu-Hawaii-climate-analysis-and-visualization/assets/120978502/c9da6ea1-a591-426d-ab8b-9a1275472dd6)
+![image](https://github.com/irinatenis/Honolulu-Hawaii-climate-analysis-and-visualization/assets/120978502/31b1b08f-b6e6-456f-a033-29472f66010e)
+
 
 ### **Climate App Design**:
 1. Used Flask to create a homepage that lists 5 avalable routes, both static and dynamic
